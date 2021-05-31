@@ -31,8 +31,6 @@ class ConversionState extends State<Conversion> {
 
   void initState() {
     super.initState();
-    print('++++++++++++++++++++++++++++Dart in+++++++++++++++++++++++++++++');
-    print(this.runtimeType);
 
     getConversion();
   }

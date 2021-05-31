@@ -1,13 +1,10 @@
-
 import 'package:cloudbase_function/cloudbase_function.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homework/Tecent/common/colors.dart';
-import 'package:homework/pages/FirstPage/workItem/workItemPage.dart';
 import 'package:homework/pages/FirstPage/workItem/workSingal.dart';
 import 'package:homework/tools/GlobalInfo.dart';
 import 'package:homework/tools/SizeFit.dart';
-import 'package:toast/toast.dart';
 
 class WorkList extends StatefulWidget {
   dynamic type;
@@ -46,7 +43,6 @@ class _WorkList extends State<WorkList>{
       this.setState(() {
         isInit = true;
       });
-      print(myInfoData);
     });
   }
 
@@ -63,12 +59,10 @@ class _WorkList extends State<WorkList>{
       this.setState(() {
         isInit = true;
       });
-      print(myInfoData);
     });
   }
 
   Widget build(BuildContext context) {
-    print("List built");
     return Container(
       color: Colors.grey[200],
       child: isInit? hasWork? ListView.builder(

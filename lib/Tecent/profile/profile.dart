@@ -18,7 +18,6 @@ import '../userProfile.dart';
 import 'component/textWithCommonStyle.dart';
 import 'component/userSign.dart';
 import 'package:homework/tools/GlobalInfo.dart';
-import 'package:homework/pages/FirstPage/workPage.dart';
 
 class Profile extends StatefulWidget {
   State<StatefulWidget> createState() => ProfileState();
@@ -28,8 +27,6 @@ class ProfileState extends State<Profile> {
   int type = 0; // 0 1 2,0=>自己打开个人中心，1=>单聊资料卡，2=>群聊资料卡
 
   Widget build(BuildContext context) {
-    print('++++++++++++++++++++++++++++Dart in+++++++++++++++++++++++++++++');
-    print(this.runtimeType);
     V2TimUserFullInfo info = Provider.of<UserModel>(context).info;
     print("个人信息${info.toJson()}");
     if (info == null) {
@@ -147,7 +144,6 @@ class AlertDialogState extends State<Alert> {
           child: new Text('取消'),
           onPressed: () {
             Navigator.of(context).pop();
-            print('取消');
           },
         ),
         new FlatButton(
@@ -162,7 +158,6 @@ class AlertDialogState extends State<Alert> {
                   Toast.show('修改成功', context);
                 }
               });
-              print('确定');
             } else {
               TencentImSDKPlugin.v2TIMManager
                   .getFriendshipManager()
@@ -292,7 +287,6 @@ class FaceUploadState extends State<FaceUpload> {
                 faceUrl: res.data[0].downloadUrl
             )
                 .then((value) {
-                  print(value.toString());
               Toast.show('头像设置成功！', context);
             });
           },

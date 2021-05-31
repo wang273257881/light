@@ -21,8 +21,6 @@ class MessageTecent extends StatefulWidget {
 class MessageTecentState extends State<MessageTecent> {
   MessageTecentState() {
     getMessage();
-    print('++++++++++++++++++++++++++++Dart in+++++++++++++++++++++++++++++');
-    print(this.runtimeType);
   }
 
   getMessage() async {

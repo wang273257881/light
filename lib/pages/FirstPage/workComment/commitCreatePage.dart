@@ -1,14 +1,9 @@
-
-import 'dart:async';
-
 import 'package:cloudbase_function/cloudbase_function.dart';
-import 'package:cloudbase_storage/cloudbase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homework/Tecent/common/colors.dart';
 import 'package:homework/tools/GlobalInfo.dart';
 import 'package:homework/tools/SizeFit.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:toast/toast.dart';
 
 class CommitCreatePage extends StatefulWidget {
@@ -38,7 +33,6 @@ class CommitCreatePageState extends State<CommitCreatePage> {
     CloudBaseFunction cloudbase = CloudBaseFunction(core);
     await cloudbase.callFunction('getCommitCount')
         .then((value) {
-          print(value);
       String count = (value.data + 1).toString();
       for (int i = 0; i < 7 - count.length; i += 1) {
         newCommitId += '0';
@@ -77,7 +71,6 @@ class CommitCreatePageState extends State<CommitCreatePage> {
             this.setState(() {
               isLoading = false;
             });
-            print(value);
             if (value.code == null) {
               Toast.show('发表成功！', context);
               Navigator.of(context).pop();

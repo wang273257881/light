@@ -126,8 +126,6 @@ class SearchState extends State<Search> {
   void initState() {
     this.type = widget.type;
     super.initState();
-    print('++++++++++++++++++++++++++++Dart in+++++++++++++++++++++++++++++');
-    print(this.runtimeType);
   }
 
   @override

@@ -41,7 +41,6 @@ class _CommentList extends State<CommentList>{
       this.setState(() {
         isLoading = false;
       });
-      print(myInfoData);
     });
   }
 

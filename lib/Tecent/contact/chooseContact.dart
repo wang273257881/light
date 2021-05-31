@@ -44,8 +44,6 @@ class ChooseContactState extends State<ChooseContact> {
     this.type = type;
     this.groupID = groupID;
     getFriendList();
-    print('++++++++++++++++++++++++++++Dart in+++++++++++++++++++++++++++++');
-    print(this.runtimeType);
   }
   selectListChange(id) {
     setState(() {

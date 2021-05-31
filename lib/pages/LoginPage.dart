@@ -1,6 +1,5 @@
 import 'package:cloudbase_auth/cloudbase_auth.dart';
 import 'package:cloudbase_core/cloudbase_core.dart';
-import 'package:cloudbase_database/cloudbase_database.dart';
 import 'package:cloudbase_function/cloudbase_function.dart';
 import 'package:homework/tools/GlobalInfo.dart';
 import 'package:homework/Tecent/provider/user.dart';
@@ -33,8 +32,6 @@ import 'package:pointycastle/api.dart' as crypto;
 
 
 class LoginPageTecent extends StatefulWidget {
-  // dynamic u_id;
-  // LoginPageTecent(this.u_id);
   @override
   _LoginPageTecentState createState() => _LoginPageTecentState();
 }
@@ -42,11 +39,9 @@ class LoginPageTecent extends StatefulWidget {
 class _LoginPageTecentState extends State<LoginPageTecent> {
   bool isinit = false;
   String oppoRegId;
-  // dynamic u_id;
 
   void initState() {
     super.initState();
-    // this.u_id = widget.u_id;
     init();
     setState(() {
       this.isinit = true;
@@ -80,8 +75,6 @@ class _LoginPageTecentState extends State<LoginPageTecent> {
   }
 
   listener(data) async {
-    print("init sdk listener emit");
-    print(data.type);
     if (data.type == 'onSelfInfoUpdated') {
       //自己信息更新，从新获取自己的信息；
       V2TimValueCallback<String> usercallback =
@@ -93,38 +86,9 @@ class _LoginPageTecentState extends State<LoginPageTecent> {
         Provider.of<UserModel>(context, listen: false).setInfo(infos.data[0]);
       }
     }
-    // if (data.type == 'onKickedOffline') {
-    //   // 被踢下线
-    //   // 清除本地缓存，回到登录页TODO
-    //   try {
-    //     Provider.of<ConversionModel>(context, listen: false).clear();
-    //     Provider.of<UserModel>(context, listen: false).clear();
-    //     Provider.of<CurrentMessageListModel>(context, listen: false).clear();
-    //     Provider.of<FriendListModel>(context, listen: false).clear();
-    //     Provider.of<FriendApplicationModel>(context, listen: false).clear();
-    //     Provider.of<GroupApplicationModel>(context, listen: false).clear();
-    //     // 去掉存的一些数据
-    //     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-    //     SharedPreferences prefs = await _prefs;
-    //     prefs.remove('token');
-    //     prefs.remove('sessionId');
-    //     prefs.remove('phone');
-    //     prefs.remove('code');
-    //   } catch (err) {
-    //     print("someError");
-    //     print(err);
-    //   }
-    //   print("被踢下线了");
-    //   Navigator.of(context).pushAndRemoveUntil(
-    //     MaterialPageRoute(builder: (BuildContext context) => LoginPageTecent(u_id)),
-    //     ModalRoute.withName('/'),
-    //   );
-    // }
   }
 
   groupListener(data) async {
-    print("groupListener emit");
-    print(data.type);
     if (data.type == 'onReceiveJoinApplication' ||
         data.type == 'onMemberEnter') {
       //新加群申请
@@ -146,8 +110,6 @@ class _LoginPageTecentState extends State<LoginPageTecent> {
   }
 
   advancedMsgListener(data) {
-    print("advancedMsgListener emit");
-    print(data.type);
     if (data.type == 'onRecvNewMessage') {
       try {
         List<V2TimMessage> messageList = new List<V2TimMessage>();
@@ -208,7 +170,6 @@ class _LoginPageTecentState extends State<LoginPageTecent> {
   }
 
   friendListener(data) async {
-    print("friendListener emit");
     String type = data.type;
     if (type == 'onFriendListAdded' ||
         type == 'onFriendListDeleted' ||
@@ -233,7 +194,6 @@ class _LoginPageTecentState extends State<LoginPageTecent> {
     if (type == 'onFriendApplicationListAdded') {
       // 收到加好友申请,添加双向好友时双方都会周到这个回调，这时要过滤掉type=2的不显示
       List<V2TimFriendApplication> list = data.data;
-      print("收到加好友申请");
       List<V2TimFriendApplication> newlist = new List<V2TimFriendApplication>();
       list.forEach((element) {
         if (element.type != 2) {
@@ -245,7 +205,6 @@ class _LoginPageTecentState extends State<LoginPageTecent> {
             .setFriendApplicationResult(newlist);
       }
     }
-    print(data.type);
   }
 
   Map<String, V2TimConversation> conversationlistToMap(
@@ -277,15 +236,10 @@ class _LoginPageTecentState extends State<LoginPageTecent> {
   }
 
   signalingListener(data) {
-    print("signalingListener emit");
-    // print(data);
   }
 
   simpleMsgListener(data) {
     //这里区分消息
-    print("simpleMsgListener emit");
-
-    print(data.type);
   }
 
   initSDK() async {
@@ -295,8 +249,6 @@ class _LoginPageTecentState extends State<LoginPageTecent> {
       loglevel: LogLevel.V2TIM_LOG_DEBUG,
       listener: listener
     );
-
-    print("initSDK");
 
     //简单监听
     timManager.addSimpleMsgListener(
@@ -322,19 +274,16 @@ class _LoginPageTecentState extends State<LoginPageTecent> {
     timManager.getSignalingManager().addSignalingListener(
       listener: signalingListener,
     );
-    print("初始化完成了");
   }
 
   @override
   Widget build(BuildContext context) {
     return (!isinit) ? new WaitHomeWidget() : new HomeWidget();
-    // return new HomeWidget(u_id);
   }
 }
 
 class HomeWidget extends StatefulWidget {
-  // dynamic u_id;
-  // HomeWidget(this.u_id);
+
   @override
   State<StatefulWidget> createState() => HomeWidgetState();
 }
@@ -348,7 +297,6 @@ class HomeWidgetState extends State<HomeWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: new AppLayout(),
-      // body: Center(),
     );
   }
 }

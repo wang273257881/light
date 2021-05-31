@@ -17,8 +17,6 @@ class UserNickState extends State<UserNick> {
   void initState() {
     this.userInfo = widget.userInfo;
     super.initState();
-    print('++++++++++++++++++++++++++++Dart in+++++++++++++++++++++++++++++');
-    print(this.runtimeType);
   }
 
   String nick = '';
@@ -59,7 +57,6 @@ class UserNickState extends State<UserNick> {
                               );
                           await widget.getUserInfo();
                           if (res.code == 0) {
-                            print("succcess");
                             Navigator.pop(context);
                           } else {
                             print(res);

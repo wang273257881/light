@@ -10,10 +10,6 @@ import 'package:tencent_im_sdk_plugin/models/v2_tim_value_callback.dart';
 import 'package:tencent_im_sdk_plugin/tencent_im_sdk_plugin.dart';
 import 'package:homework/Tecent/common/avatar.dart';
 import 'package:homework/Tecent/common/colors.dart';
-// import 'package:homework/Tecent/blackList/blackList.dart';
-import 'package:homework/Tecent/contact/component/FriendNotice.dart';
-// import 'package:homework/Tecent/friendNotice/friendNotice.dart';
-// import 'package:homework/Tecent/goups/goups.dart';
 import 'package:homework/Tecent/userProfile.dart';
 import 'package:homework/Tecent/provider/friend.dart';
 import 'package:homework/Tecent/provider/friendApplication.dart';
@@ -25,8 +21,6 @@ class Contact extends StatefulWidget {
 
 class MyGroups extends StatelessWidget {
   Widget build(BuildContext context) {
-    print('++++++++++++++++++++++++++++Dart in+++++++++++++++++++++++++++++');
-    print(this.runtimeType);
     List<V2TimGroupApplication> applicationList;
     bool hasApplication;
     applicationList =

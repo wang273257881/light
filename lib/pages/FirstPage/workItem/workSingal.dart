@@ -32,8 +32,9 @@ class _WorkSingal extends State<WorkSingal>{
       'type': type,
     })
         .then((value) {
-      print(value);
-      Toast.show('删除成功！', context);
+      if (value.data == null) {
+        Toast.show('删除成功！', context);
+      }
     });
     CloudBaseStorage storage = CloudBaseStorage(core);
     CloudBaseStorageRes<List<DownloadMetadata>> res;

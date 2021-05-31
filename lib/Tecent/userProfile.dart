@@ -141,8 +141,6 @@ class UserProfileState extends State<UserProfile> {
     userID = widget.userID;
     getUserInfo();
     super.initState();
-    print('++++++++++++++++++++++++++++Dart in+++++++++++++++++++++++++++++');
-    print(this.runtimeType);
   }
 
   getUserInfo() async {
