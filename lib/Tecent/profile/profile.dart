@@ -165,11 +165,10 @@ class AlertDialogState extends State<Alert> {
                 userID: name,
                 addType: 1,
               ).then((value) {
+                Navigator.of(context).pop();
                 if (value.code != 0) {
-                  Toast.show('${value.code}-${value.desc}', context,
-                      duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
+                  Toast.show('该Id的用户不存在！', context);
                 } else {
-                  Navigator.of(context).pop();
                   Navigator.push(
                     context,
                     new MaterialPageRoute(
