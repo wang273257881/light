@@ -94,6 +94,7 @@ class WorkCreatePageState extends State<WorkCreatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar:AppBar(
         backgroundColor: CommonColors.getThemeColor(),
         leading: IconButton(

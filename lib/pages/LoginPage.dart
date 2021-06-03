@@ -296,6 +296,7 @@ class HomeWidgetState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: new AppLayout(),
     );
   }
@@ -523,14 +524,14 @@ class _LoginFormState extends State<LoginForm> {
             ),
             Container(
               margin: EdgeInsets.only(
-                top: 10,
+                top: 30,
               ),
               alignment: Alignment.center,
               child: Text("首次登录将自动进行注册", style: TextStyle(fontSize: 20),),
             ),
             Container(
               margin: EdgeInsets.only(
-                top: 18,
+                top: 28,
               ),
               child: Row(
                 children: [
