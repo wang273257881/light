@@ -26,7 +26,7 @@ class UserSign extends StatelessWidget {
             Navigator.push(
               context,
               new MaterialPageRoute(
-                builder: (context) => SelfSign(),
+                builder: (context) => SelfSign(0),
               ),
             );
           },

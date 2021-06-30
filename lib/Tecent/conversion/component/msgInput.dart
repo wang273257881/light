@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:homework/Tecent/common/colors.dart';
-import 'package:homework/Tecent/conversion/component/addFaceMsg.dart';
-import 'package:homework/Tecent/conversion/component/addTextMsg.dart';
 import 'package:homework/Tecent/provider/currentMessageList.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_message.dart';
@@ -39,10 +37,7 @@ class MsgInputState extends State<MsgInput> {
       // TextMsg(toUser, type),
       Row(
         children: [
-          // VoiceMsg(toUser, type),
           TextMsg(),
-          FaceMsg(toUser, 1),
-          // AdvanceMsg(toUser, type),
           TextButton(onPressed: () => onSubmitted(input, context), child: Text('确认'))
         ],
       ),

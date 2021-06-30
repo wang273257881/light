@@ -15,6 +15,7 @@ import 'package:tencent_im_sdk_plugin/tencent_im_sdk_plugin.dart';
 import 'package:toast/toast.dart';
 import 'package:image_picker/image_picker.dart';
 import '../userProfile.dart';
+import 'component/selfSign.dart';
 import 'component/textWithCommonStyle.dart';
 import 'component/userSign.dart';
 import 'package:homework/tools/GlobalInfo.dart';
@@ -75,11 +76,12 @@ class UserName extends StatelessWidget {
         color: CommonColors.getWitheColor(),
         child: InkWell(
           onTap: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return Alert(0);
-              });
+            Navigator.push(
+              context,
+              new MaterialPageRoute(
+                builder: (context) => SelfSign(1),
+              ),
+            );
           },
           child: Container(
             height: 55,
@@ -154,7 +156,6 @@ class AlertDialogState extends State<Alert> {
                   .setSelfInfo(nickName: name)
                   .then((value) {
                 if (value.code == 0) {
-                  Navigator.of(context).pop();
                   Toast.show('修改成功', context);
                 }
               });
@@ -165,7 +166,6 @@ class AlertDialogState extends State<Alert> {
                 userID: name,
                 addType: 1,
               ).then((value) {
-                Navigator.of(context).pop();
                 if (value.code != 0) {
                   Toast.show('该Id的用户不存在！', context);
                 } else {
@@ -184,20 +184,6 @@ class AlertDialogState extends State<Alert> {
       ],
     );
   }
-
-  addFriend() async{
-    V2TimValueCallback<V2TimFriendOperationResult> data =
-        await TencentImSDKPlugin.v2TIMManager
-        .getFriendshipManager()
-        .addFriend(
-      userID: name,
-      addType: 1,
-    );
-    if (data.code != 0) {
-      Toast.show('${data.code}-${data.desc}', context,
-          duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
-    }
-  }
 }
 
 class UserSearch extends StatelessWidget {
@@ -209,11 +195,12 @@ class UserSearch extends StatelessWidget {
         color: CommonColors.getWitheColor(),
         child: InkWell(
           onTap: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return Alert(1);
-                });
+            Navigator.push(
+              context,
+              new MaterialPageRoute(
+                builder: (context) => SelfSign(2),
+              ),
+            );
           },
           child: Container(
             height: 55,

@@ -182,6 +182,11 @@ class WorkCreatePageState extends State<WorkCreatePage> {
                         }
                         String path = image.path;
                         CloudBaseStorage storage = CloudBaseStorage(core);
+                        CloudBaseStorageRes<List<DeleteMetadata>> resDel;
+                        resDel = await storage.deleteFiles(
+                            [cloudBaseInfoGlobal.fileStorge + '/work/' + newWorkId + '.jpg']
+                        );
+                        Toast.show('准备上传图片···', context);
                         await storage.uploadFile(
                             cloudPath: 'work/' + newWorkId + '.jpg',
                             filePath: path,

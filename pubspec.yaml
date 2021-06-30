@@ -23,26 +23,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  tencent_im_sdk_plugin: ^2.0.6
-  provider: ^5.0.0
+  tencent_im_sdk_plugin: ^1.1.0
+  provider: ^4.3.3
   toast: ^0.1.5
-  flutter_apns: ^1.4.1
   crypto: ^2.1.3
   flutter_slidable: ^0.5.7
   image_picker: ^0.6.7+14
   loading: ^1.0.2
   url_launcher: ^5.1.3
   dio: ^3.0.9
-  shared_preferences: ^0.5.6
   cloudbase_core: ^0.0.9
   cloudbase_auth: ^0.0.11
   cloudbase_function: ^0.0.2
   cloudbase_storage: ^0.0.3
   cloudbase_database: ^0.0.10
-  rsa_encrypt: ^2.0.0
+  rsa_encrypt: ^1.0.5
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.0
 
 dev_dependencies:
   flutter_test:

@@ -7,22 +7,12 @@ import 'package:homework/pages/HomePage.dart';
 import 'package:provider/provider.dart';
 import 'package:tencent_im_sdk_plugin/enum/log_level.dart';
 import 'package:tencent_im_sdk_plugin/manager/v2_tim_manager.dart';
-import 'package:tencent_im_sdk_plugin/models/v2_tim_message_progress.dart';
-import 'package:tencent_im_sdk_plugin/models/v2_tim_friend_application.dart';
-import 'package:tencent_im_sdk_plugin/models/v2_tim_friend_info.dart';
-import 'package:tencent_im_sdk_plugin/models/v2_tim_group_application_result.dart';
-import 'package:tencent_im_sdk_plugin/models/v2_tim_message.dart';
-import 'package:tencent_im_sdk_plugin/models/v2_tim_message_receipt.dart';
 import 'package:tencent_im_sdk_plugin/tencent_im_sdk_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_value_callback.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_user_full_info.dart';
 import 'package:homework/Tecent/provider/conversion.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_conversation.dart';
-import 'package:homework/Tecent/provider/currentMessageList.dart';
-import 'package:homework/Tecent/provider/friend.dart';
-import 'package:homework/Tecent/provider/friendApplication.dart';
-import 'package:homework/Tecent/provider/groupApplication.dart';
 import 'package:homework/Tecent/utils/GenerateTestUserSig.dart';
 import 'package:homework/Tecent/utils/config.dart';
 import 'package:toast/toast.dart';
@@ -88,125 +78,6 @@ class _LoginPageTecentState extends State<LoginPageTecent> {
     }
   }
 
-  groupListener(data) async {
-    if (data.type == 'onReceiveJoinApplication' ||
-        data.type == 'onMemberEnter') {
-      //新加群申请
-      V2TimValueCallback<V2TimGroupApplicationResult> res =
-      await TencentImSDKPlugin.v2TIMManager
-          .getGroupManager()
-          .getGroupApplicationList();
-      if (res.code == 0) {
-        if (res.code == 0) {
-          if (res.data.groupApplicationList.length > 0) {
-            Provider.of<GroupApplicationModel>(context, listen: false)
-                .setGroupApplicationResult(res.data.groupApplicationList);
-          }
-        }
-      } else {
-        print("获取加群申请失败${res.desc}");
-      }
-    } else if (data.type == 'onQuitFromGroup') {}
-  }
-
-  advancedMsgListener(data) {
-    if (data.type == 'onRecvNewMessage') {
-      try {
-        List<V2TimMessage> messageList = new List<V2TimMessage>();
-        V2TimMessage message;
-        message = data.data;
-        messageList.add(message);
-
-        print("c2c_${message.sender}");
-        String key;
-        if (message.groupID == null) {
-          key = "c2c_${message.sender}";
-        } else {
-          key = "group_${message.groupID}";
-        }
-        print("conterkey_$key");
-        Provider.of<CurrentMessageListModel>(context, listen: false)
-            .addMessage(key, messageList);
-      } catch (err) {
-        print(err);
-      }
-    }
-    if (data.type == 'onRecvC2CReadReceipt') {
-      print('收到了新消息 已读回执');
-      List<V2TimMessageReceipt> list = data.data;
-      list.forEach((element) {
-        print("已读回执${element.userID} ${element.timestamp}");
-        Provider.of<CurrentMessageListModel>(context, listen: false)
-            .updateC2CMessageByUserId(element.userID);
-      });
-    }
-    if (data.type == 'onRecvMessageRevoked') {
-      //消息撤回 TODO
-    }
-    if (data.type == 'onSendMessageProgress') {
-      //消息进度
-      MessageProgress msgPro = data.data;
-      V2TimMessage message = msgPro.message;
-      String key;
-      if (message.groupID == null) {
-        key = "c2c_${message.userID}";
-      } else {
-        key = "group_${message.groupID}";
-      }
-      try {
-        Provider.of<CurrentMessageListModel>(
-          context,
-          listen: false,
-        ).addOneMessageIfNotExits(
-          key,
-          message,
-        );
-      } catch (err) {
-        print("error $err");
-      }
-      print(
-          "消息发送进度 ${msgPro.progress} ${message.timestamp} ${message.msgID} ${message.timestamp} ${message.status}");
-    }
-  }
-
-  friendListener(data) async {
-    String type = data.type;
-    if (type == 'onFriendListAdded' ||
-        type == 'onFriendListDeleted' ||
-        type == 'onFriendInfoChanged' ||
-        type == 'onBlackListDeleted') {
-      //好友加成功了，删除好友 重新获取好友
-      V2TimValueCallback<List<V2TimFriendInfo>> friendRes =
-      await TencentImSDKPlugin.v2TIMManager
-          .getFriendshipManager()
-          .getFriendList();
-      if (friendRes.code == 0) {
-        List<V2TimFriendInfo> newList = friendRes.data;
-        if (newList != null && newList.length > 0) {
-          Provider.of<FriendListModel>(context, listen: false)
-              .setFriendList(newList);
-        } else {
-          Provider.of<FriendListModel>(context, listen: false)
-              .setFriendList(new List<V2TimFriendInfo>());
-        }
-      }
-    }
-    if (type == 'onFriendApplicationListAdded') {
-      // 收到加好友申请,添加双向好友时双方都会周到这个回调，这时要过滤掉type=2的不显示
-      List<V2TimFriendApplication> list = data.data;
-      List<V2TimFriendApplication> newlist = new List<V2TimFriendApplication>();
-      list.forEach((element) {
-        if (element.type != 2) {
-          newlist.add(element);
-        }
-      });
-      if (newlist.isNotEmpty) {
-        Provider.of<FriendApplicationModel>(context, listen: false)
-            .setFriendApplicationResult(newlist);
-      }
-    }
-  }
-
   Map<String, V2TimConversation> conversationlistToMap(
       List<V2TimConversation> list) {
     Map<int, V2TimConversation> convsersationMap = list.asMap();
@@ -253,19 +124,6 @@ class _LoginPageTecentState extends State<LoginPageTecent> {
     //简单监听
     timManager.addSimpleMsgListener(
       listener: simpleMsgListener
-    );
-
-    //群组监听
-    timManager.setGroupListener(
-      listener: groupListener,
-    );
-    //高级消息监听
-    timManager.getMessageManager().addAdvancedMsgListener(
-      listener: advancedMsgListener,
-    );
-    //关系链监听
-    timManager.getFriendshipManager().setFriendListener(
-      listener: friendListener,
     );
     //会话监听
     timManager.getConversationManager().setConversationListener(

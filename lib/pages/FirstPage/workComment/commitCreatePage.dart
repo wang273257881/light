@@ -6,6 +6,8 @@ import 'package:homework/tools/GlobalInfo.dart';
 import 'package:homework/tools/SizeFit.dart';
 import 'package:toast/toast.dart';
 
+import '../../HomePage.dart';
+
 class CommitCreatePage extends StatefulWidget {
   String workId;
   CommitCreatePage(this.workId);
@@ -73,7 +75,12 @@ class CommitCreatePageState extends State<CommitCreatePage> {
             });
             if (value.code == null) {
               Toast.show('发表成功！', context);
-              Navigator.of(context).pop();
+              Navigator.push(
+                context,
+                new MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                ),
+              );
             }
           });
         },

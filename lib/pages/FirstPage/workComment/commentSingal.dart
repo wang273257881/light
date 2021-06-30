@@ -195,9 +195,9 @@ class TitleInfo extends StatelessWidget {
       margin: EdgeInsets.only(bottom: SizeFit.setRpx(40), left: SizeFit.setRpx(60), right: SizeFit.setRpx(40)),
       child: Text(content, maxLines: null, style: TextStyle(fontSize: SizeFit.setRpx(45), fontWeight: FontWeight.bold)),
       // alignment: Alignment.topLeft,
-      constraints: BoxConstraints(
-        maxHeight: SizeFit.setRpx(200),
-      ),
+      // constraints: BoxConstraints(
+      //   maxHeight: SizeFit.setRpx(200),
+      // ),
     );
   }
 }

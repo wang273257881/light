@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tencent_im_sdk_plugin/enum/message_elem_type.dart';
 import 'package:tencent_im_sdk_plugin/enum/message_status.dart';
 import 'package:tencent_im_sdk_plugin/models/v2_tim_message.dart';
 import 'package:homework/Tecent/common/colors.dart';
 import 'package:homework/Tecent/common/hexToColor.dart';
-import 'package:homework/Tecent/conversion/component/SystemMessage.dart';
-import 'package:homework/Tecent/conversion/component/customMessage.dart';
 
 class MsgBody extends StatelessWidget {
   TextDirection textDirection = TextDirection.rtl;
@@ -101,22 +98,6 @@ class MsgBody extends StatelessWidget {
                 height: 1.4,
               ),
             ),
-            // Container(
-            //   margin: EdgeInsets.only(left: 5),
-            //   child: InkWell(
-            //     onTap: () {
-
-            //     },
-            //     child: Text(
-            //       "重新发送",
-            //       style: TextStyle(
-            //         fontSize: 10,
-            //         color: CommonColors.getThemeColor(),
-            //         height: 1.4,
-            //       ),
-            //     ),
-            //   ),
-            // )
           ],
         );
       }
@@ -179,24 +160,6 @@ class MsgBody extends StatelessWidget {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child:
-                  // msgobj.elemType ==
-                  //         MessageElemType.V2TIM_ELEM_TYPE_IMAGE //图片
-                  //     ? ImageMessage(msgobj)
-                  //     : msgobj.elemType ==
-                  //             MessageElemType.V2TIM_ELEM_TYPE_FACE //表情
-                  //         ? Container(
-                  //             child: Text("表情 ${msgobj.faceElem.data}"),
-                  //           )
-                  //         : msgobj.elemType ==
-                  //                 MessageElemType.V2TIM_ELEM_TYPE_SOUND //语音
-                  //             ? SoundMessage(msgobj)
-                  //             : msgobj.elemType ==
-                  //                     MessageElemType.V2TIM_ELEM_TYPE_VIDEO //视频
-                  //                 ? VideoMessage(msgobj)
-                  //                 : msgobj.elemType ==
-                  //                         MessageElemType
-                  //                             .V2TIM_ELEM_TYPE_CUSTOM //自定义消息
-                  //                     ? CustomMessage(msgobj) :
                                        msgobj.elemType == 1 //文字
                                           ? Text(
                                               message,
@@ -208,14 +171,6 @@ class MsgBody extends StatelessWidget {
                                                     : hexToColor('000000'),
                                               ),
                                             )
-                                          : msgobj.elemType ==
-                                                  MessageElemType
-                                                      .V2TIM_ELEM_TYPE_GROUP_TIPS //系统消息
-                                              ? SystemMessage(msgobj)
-                                              // : msgobj.elemType ==
-                                              //         MessageElemType
-                                              //             .V2TIM_ELEM_TYPE_FILE //文件消息
-                                              //     ? FileMessage(msgobj)
                                                   : Text(
                                                       "未解析消息${msgobj.elemType}",
                                                       textAlign: textAlign,

@@ -138,7 +138,7 @@ class ConversionItem extends StatelessWidget {
   }
 
   String formatTime() {
-    int timestamp = lastMessage.timestamp * 1000;
+    int timestamp = lastMessage.timestamp * 1000 + 8 * 3600000;
     DateTime time = DateTime.fromMillisecondsSinceEpoch(timestamp);
     DateTime now = DateTime.now();
 
